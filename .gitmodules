@@ -1,0 +1,3 @@
+[submodule "themes/yiliya"]
+	path = themes/yiliya
+	url = git@github.com:lonelyclick/hexo-theme-yilia.git
