@@ -70,7 +70,20 @@ theme: yilia
 deploy:
   type:
 
+uglify:
+  mangle: true
+  output:
+  compress:
+
+clean_css:
+  exclude:
+
+html_minifier:
+  exclude:
+
+# Admin
 admin:
-  username: guang
-  password_hash: 2d1ea1d46d1fd7e0a3bfaf6fe34937ba
-  secret: lonelyclick blog secret
+  name: guang
+  password:
+  secret: nicefe secret
+  expire: 60*1
