@@ -84,6 +84,6 @@ html_minifier:
 # Admin
 admin:
   name: guang
-  password:
+  password: 891218982181
   secret: nicefe secret
   expire: 60*1
