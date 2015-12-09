@@ -1,9 +1,8 @@
 title: 函数式编程深入路线
 tags: []
 categories: []
-date: 2015-12-09 10:34:25
+date: 2015-12-09 10:34:00
 ---
-
 - 函数式思维
 - 定义函数输入与输出
 - 内部实现（遵循纯度与不可变性理论）
@@ -128,8 +127,8 @@ es5 和 es6 的出现，让 javascript 更加容易实现函数式
 ```
 [1, 2, 3, 4, 5, 6].map(index => index + 2) // [3, 4, 5, 6, 7, 8]
 ['a', 'b', 'c', 'd'].reduce((result, current) => {
-	return Object.assign(result, {
-  	[current]: null
+  return Object.assign(result, {
+    [current]: null
   })
 }, {}) // { a: null, b: null, c: null, d: null }
 ```
