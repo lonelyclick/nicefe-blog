@@ -83,6 +83,7 @@ html_minifier:
 
 # Admin
 admin:
-  username: guang
-  password_hash: 2c688bd81553191067b2abac61bf5371
-  secret: a secret something
+  name: hexo
+  password:
+  secret: hey hexo something....
+  expire: 60*1
