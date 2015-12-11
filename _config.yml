@@ -70,7 +70,6 @@ theme: yilia
 deploy:
   - type: git
     repo: git@github.com:lonelyclick/nicefe-blog.git
-    branch: master
   - type: rsync
     host: nicefe.com
     user: guang
