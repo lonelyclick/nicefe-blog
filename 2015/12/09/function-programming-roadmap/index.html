@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>函数式编程深入路线 | 孤独惟者的博客</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <meta name="description" content="函数式思维
+定义函数输入与输出
+内部实现（遵循纯度与不可变性理论）
+基础组合子
+
+函数式思维我们惯常的思维都是面向过程式的，比如：12const array = [1, 2, 3, 4, 5, 6]console.log(array[1])
+相当于我从 array 中拿第几个的值，而函数式思维是：我先做一个工具，我给这个工具输入 array 与 index ，这个工具负责给我返回我想要的值
+123">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数式编程深入路线">
+<meta property="og:url" content="http://nicefe.com/2015/12/09/function-programming-roadmap/index.html">
+<meta property="og:site_name" content="孤独惟者的博客">
+<meta property="og:description" content="函数式思维
+定义函数输入与输出
+内部实现（遵循纯度与不可变性理论）
+基础组合子
+
+函数式思维我们惯常的思维都是面向过程式的，比如：12const array = [1, 2, 3, 4, 5, 6]console.log(array[1])
+相当于我从 array 中拿第几个的值，而函数式思维是：我先做一个工具，我给这个工具输入 array 与 index ，这个工具负责给我返回我想要的值
+123">
+<meta property="og:updated_time" content="2015-12-11T09:31:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数式编程深入路线">
+<meta name="twitter:description" content="函数式思维
+定义函数输入与输出
+内部实现（遵循纯度与不可变性理论）
+基础组合子
+
+函数式思维我们惯常的思维都是面向过程式的，比如：12const array = [1, 2, 3, 4, 5, 6]console.log(array[1])
+相当于我从 array 中拿第几个的值，而函数式思维是：我先做一个工具，我给这个工具输入 array 与 index ，这个工具负责给我返回我想要的值
+123">
+  
+    <link rel="alternative" href="/atom.xml" title="孤独惟者的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/avatar.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">孤独惟者</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">求勾搭：670891929</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/lonelyclick" title="github">github</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+
+				
+
+				
+			</div>
+		</div>
+	</header>
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<h1 class="header-author js-mobile-header hide">孤独惟者</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/avatar.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">孤独惟者</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">求勾搭：670891929</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/lonelyclick" title="github">github</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-function-programming-roadmap" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/09/function-programming-roadmap/" class="article-date">
+  	<time datetime="2015-12-09T02:34:00.000Z" itemprop="datePublished">2015-12-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        <h1 class="article-title" itemprop="name">
+      函数式编程深入路线
+    </h1>
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>函数式思维</li>
+<li>定义函数输入与输出</li>
+<li>内部实现（遵循纯度与不可变性理论）</li>
+<li>基础组合子</li>
+</ul>
+<h2 id="u51FD_u6570_u5F0F_u601D_u7EF4"><a href="#u51FD_u6570_u5F0F_u601D_u7EF4" class="headerlink" title="函数式思维"></a>函数式思维</h2><p>我们惯常的思维都是面向过程式的，比如：<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">array</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]</span><br><span class="line">console.<span class="built_in">log</span>(<span class="built_in">array</span>[<span class="number">1</span>])</span><br></pre></td></tr></table></figure></p>
+<p>相当于我从 <code>array</code> 中拿第几个的值，而函数式思维是：我先做一个工具，我给这个工具输入 <code>array</code> 与 <code>index</code> ，这个工具负责给我返回我想要的值</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">nth</span><span class="params">(<span class="built_in">array</span>, index)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">array</span>[index]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">array</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">console.<span class="built_in">log</span>(nth(<span class="built_in">array</span>, <span class="number">1</span>))</span><br></pre></td></tr></table></figure>
+<p>也就说，面向过程的思维的最小原子是一个个命令，而函数式思维的最小原子是一个个的<strong>函数</strong>，所以函数式思维的优点在于：</p>
+<ul>
+<li>代码层面，最小原子是函数，高一个维度</li>
+<li>思维层面，使用函数式来思考及设计，就是要使用『上帝』的视角了。</li>
+</ul>
+<h2 id="u5B9A_u4E49_u51FD_u6570_u8F93_u5165_u4E0E_u8F93_u51FA"><a href="#u5B9A_u4E49_u51FD_u6570_u8F93_u5165_u4E0E_u8F93_u51FA" class="headerlink" title="定义函数输入与输出"></a>定义函数输入与输出</h2><h3 id="u9AD8_u9636_u51FD_u6570"><a href="#u9AD8_u9636_u51FD_u6570" class="headerlink" title="高阶函数"></a>高阶函数</h3><p>所谓高阶函数，首要条件是函数必须为一等公民，也就是说，函数必须可以想其他原生数据类型一样作为值进行传递，可分为三种：</p>
+<ul>
+<li>函数作为参数传入</li>
+</ul>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fp1</span><span class="params">(callback)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">callback</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>函数作为返回值返回</li>
+</ul>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fp2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">callback</span><span class="params">()</span> </span>&#123;&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>函数作为参数传入，并且函数作为返回值</li>
+</ul>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">fp3</span><span class="params">(callback1)</span> </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">callback2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> callback1()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="u96BE_u5EA6"><a href="#u96BE_u5EA6" class="headerlink" title="难度"></a>难度</h3><p>其中，第一二种，比较简单，第三种，困难</p>
+<h2 id="u5185_u90E8_u5B9E_u73B0"><a href="#u5185_u90E8_u5B9E_u73B0" class="headerlink" title="内部实现"></a>内部实现</h2><h3 id="u7EAF_u5EA6"><a href="#u7EAF_u5EA6" class="headerlink" title="纯度"></a>纯度</h3><p>也就是说，每个函数尽量要写成纯函数(pure function)</p>
+<ul>
+<li>结果只能从他的参数值来计算</li>
+<li>不能依赖被外部改变的数据</li>
+<li>不能改变外部的状态</li>
+</ul>
+<h3 id="u4E0D_u53EF_u53D8_u6570_u636E_u7ED3_u6784"><a href="#u4E0D_u53EF_u53D8_u6570_u636E_u7ED3_u6784" class="headerlink" title="不可变数据结构"></a>不可变数据结构</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">const set = new <span class="function"><span class="title">Set</span><span class="params">()</span></span></span><br><span class="line">set.<span class="function"><span class="title">add</span><span class="params">(<span class="number">1</span>)</span></span></span><br><span class="line">console.<span class="function"><span class="title">log</span><span class="params">(set)</span></span> <span class="comment">// mutable</span></span><br></pre></td></tr></table></figure>
+<p>如上代码，es6 的 <code>Set</code> 就是一个可变数据结构，而不可变数据结构如下：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">const set = new <span class="function"><span class="title">Set</span><span class="params">()</span></span></span><br><span class="line">const set2 = set.<span class="function"><span class="title">add</span><span class="params">(<span class="number">1</span>)</span></span></span><br><span class="line">console.<span class="function"><span class="title">log</span><span class="params">(set.size)</span></span> <span class="comment">// 0</span></span><br><span class="line">console.<span class="function"><span class="title">log</span><span class="params">(set2.size)</span></span> <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+<p>这里推荐优秀的 <a href="https://facebook.github.io/immutable-js/" target="_blank" rel="external">Immutablejs</a></p>
+<h3 id="u8303_u4F8B"><a href="#u8303_u4F8B" class="headerlink" title="范例"></a>范例</h3><p><code>redux</code> 的 <code>reducer</code> 是一个很好的范例</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import Immutable <span class="keyword">from</span> 'immutable'</span><br><span class="line">import &#123; createReducer &#125; <span class="keyword">from</span> 'redux-immutablejs'</span><br><span class="line"></span><br><span class="line">import &#123; common as actionType &#125; <span class="keyword">from</span> '../lib/actionType'</span><br><span class="line"></span><br><span class="line">export <span class="keyword">default</span> createReducer(Immutable.<span class="keyword">from</span>JS(&#123;&#125;), &#123;</span><br><span class="line">  [actionType.requestFail](<span class="keyword">state</span>, action) &#123;</span><br><span class="line">    return <span class="keyword">state</span>.merge(&#123;</span><br><span class="line">      theme: 'error',</span><br><span class="line">      message: action.error,</span><br><span class="line">      time: String(Date.now())</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line"></span><br><span class="line">  [actionType.auditResourceSuccess](<span class="keyword">state</span>, action) &#123;</span><br><span class="line">    return <span class="keyword">state</span>.merge(&#123;</span><br><span class="line">      theme: 'success',</span><br><span class="line">      message: action.message,</span><br><span class="line">      title: action.title,</span><br><span class="line">      time: String(Date.now())</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="u57FA_u7840_u7EC4_u5408_u5B50_u63A8_u8350"><a href="#u57FA_u7840_u7EC4_u5408_u5B50_u63A8_u8350" class="headerlink" title="基础组合子推荐"></a>基础组合子推荐</h2><h3 id="es5__26amp_3B_es6"><a href="#es5__26amp_3B_es6" class="headerlink" title="es5 &amp; es6"></a>es5 &amp; es6</h3><p>es5 和 es6 的出现，让 javascript 更加容易实现函数式</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>].map(index =&gt; index + <span class="number">2</span>) // [<span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>]</span><br><span class="line">['a', 'b', 'c', 'd'].reduce((<span class="literal">result</span>, current) =&gt; &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="type">Object</span>.assign(<span class="literal">result</span>, &#123;</span><br><span class="line">    [current]: null</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;, &#123;&#125;) // &#123; a: null, b: null, c: null, d: null &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="underscore__26amp_3B_26amp_3B_lodash"><a href="#underscore__26amp_3B_26amp_3B_lodash" class="headerlink" title="underscore &amp;&amp; lodash"></a>underscore &amp;&amp; lodash</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_<span class="class">.findWhere</span>(<span class="tag">publicServicePulitzers</span>, <span class="rules">&#123;<span class="rule"><span class="attribute">newsroom</span>:<span class="value"> <span class="string">"The New York Times"</span></span></span></span>&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Immutablejs"><a href="#Immutablejs" class="headerlink" title="Immutablejs"></a>Immutablejs</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">var</span> map1 = Immutable.<span class="function"><span class="title">Map</span><span class="params">(&#123; a:<span class="number">1</span>, b:<span class="number">2</span>, c:<span class="number">3</span> &#125;)</span></span></span><br><span class="line"><span class="tag">var</span> map2 = map1.<span class="function"><span class="title">set</span><span class="params">(<span class="string">'b'</span>, <span class="number">50</span>)</span></span></span><br><span class="line">map1.<span class="function"><span class="title">get</span><span class="params">(<span class="string">'b'</span>)</span></span> <span class="comment">// 2</span></span><br><span class="line">map2.<span class="function"><span class="title">get</span><span class="params">(<span class="string">'b'</span>)</span></span> <span class="comment">// 50</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+  
+    <nav id="article-nav">
+  
+    <a href="/2015/12/11/falcor-intro/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"></strong>
+      <div class="article-nav-title">
+        
+          Falcor 介绍
+        
+      </div>
+    </a>
+  
+  
+</nav>
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="function-programming-roadmap" data-title="函数式编程深入路线" data-url="http://nicefe.com/2015/12/09/function-programming-roadmap/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div></div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 孤独惟者 京ICP备15063164号-1
+    	</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-71297681-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+    </div>
+    
+  </div>
+</body>
