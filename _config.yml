@@ -83,7 +83,7 @@ html_minifier:
 
 # Admin
 admin:
-  name: hexo
+  name: 
   password:
-  secret: hey hexo something....
+  secret: hey hexo
   expire: 60*1
