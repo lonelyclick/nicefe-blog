@@ -3,7 +3,7 @@ tags: []
 categories: []
 date: 2015-12-11 14:10:00
 ---
-## 什么是 Falcor
+# 什么是 Falcor
 
 Falcor 是一个由 Netflix 提供的新颖的数据平台。它可以把你后台的数据通过一个虚拟的 JSON 数据提供给前端。在前端，你可以像操作本地 JSON 一样操作异步数据。**如果你知道了数据的格式，你就知道了 API 该怎么写了。**
 
@@ -111,5 +111,3 @@ model.
 在大部分的 MVC 架构里， 接收数据都是 `Controller` 的职责，用 Falcor 的一个最佳实践就是直接在 `View` 层来直接接受数据，并且像操作内存中的数据一样进行操作。因为 View 和 Modal 之间的通信是异步的，有些时间需要异步的 MVC。
 
 ![](https://netflix.github.io/falcor/images/async-mvc.png)
-
-

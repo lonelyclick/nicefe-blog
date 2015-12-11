@@ -4,5 +4,5 @@ db.json
 *.log
 node_modules/
 themes/yilia
-public/
+public
 .deploy*/

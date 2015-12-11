@@ -68,7 +68,15 @@ theme: yilia
 # Deployment
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
-  type:
+  type: git
+  repo: git@github.com:lonelyclick/nicefe-blog.git
+  branch: master
+  message: [message]
+  type: rsync
+  host: nidefe.com
+  user: guang
+  root: /
+  port: 22
 
 uglify:
   mangle: true
@@ -83,7 +91,7 @@ html_minifier:
 
 # Admin
 admin:
-  name: 
+  name:
   password:
   secret: hey hexo
   expire: 60*1
