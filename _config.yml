@@ -72,8 +72,8 @@ deploy:
     repo: git@github.com:lonelyclick/nicefe-blog.git
   - type: rsync
     host: nicefe.com
-    user: guang
-    root: /home/guang/nicefe-blog-public/public
+    user: root
+    root: /usr/share/nginx/html
     port: 22
 
 uglify:
