@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Node.js 分布式架构 | 孤独惟者的博客</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <meta name="description" content="1.单台服务器上，如何让 Node.js 充分利用多核心 cpu可以使用 Node.js 的 Cluster 功能 123456789101112131415161718192021const cluster = require(&apos;cluster&apos;);const http = require(&apos;http&apos;);const numCPUs = require(&apos;os&apos;).cpus().length;i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Node.js 分布式架构">
+<meta property="og:url" content="http://nicefe.com/2016/01/29/node-js-distributed/index.html">
+<meta property="og:site_name" content="孤独惟者的博客">
+<meta property="og:description" content="1.单台服务器上，如何让 Node.js 充分利用多核心 cpu可以使用 Node.js 的 Cluster 功能 123456789101112131415161718192021const cluster = require(&apos;cluster&apos;);const http = require(&apos;http&apos;);const numCPUs = require(&apos;os&apos;).cpus().length;i">
+<meta property="og:image" content="http://nicefe.com/images/node_multi_cpu.png">
+<meta property="og:image" content="http://nicefe.com/images/node_lb.png">
+<meta property="og:updated_time" content="2017-09-02T02:43:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Node.js 分布式架构">
+<meta name="twitter:description" content="1.单台服务器上，如何让 Node.js 充分利用多核心 cpu可以使用 Node.js 的 Cluster 功能 123456789101112131415161718192021const cluster = require(&apos;cluster&apos;);const http = require(&apos;http&apos;);const numCPUs = require(&apos;os&apos;).cpus().length;i">
+<meta name="twitter:image" content="http://nicefe.com/images/node_multi_cpu.png">
+  
+    <link rel="alternative" href="/atom.xml" title="孤独惟者的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/avatar.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">孤独惟者</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">求勾搭：670891929</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/lonelyclick" title="github">github</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+
+				
+
+				
+			</div>
+		</div>
+	</header>
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<h1 class="header-author js-mobile-header hide">孤独惟者</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/avatar.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">孤独惟者</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">求勾搭：670891929</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/lonelyclick" title="github">github</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-node-js-distributed" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/29/node-js-distributed/" class="article-date">
+  	<time datetime="2016-01-29T04:25:41.000Z" itemprop="datePublished">2016-01-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        <h1 class="article-title" itemprop="name">
+      Node.js 分布式架构
+    </h1>
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-单台服务器上，如何让-Node-js-充分利用多核心-cpu"><a href="#1-单台服务器上，如何让-Node-js-充分利用多核心-cpu" class="headerlink" title="1.单台服务器上，如何让 Node.js 充分利用多核心 cpu"></a>1.单台服务器上，如何让 Node.js 充分利用多核心 cpu</h3><p>可以使用 Node.js 的 Cluster 功能</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> cluster = <span class="built_in">require</span>(<span class="string">'cluster'</span>);</div><div class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"><span class="keyword">const</span> numCPUs = <span class="built_in">require</span>(<span class="string">'os'</span>).cpus().length;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (cluster.isMaster) &#123;</div><div class="line">  <span class="comment">// Fork workers.</span></div><div class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; numCPUs; i++) &#123;</div><div class="line">    cluster.fork();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  cluster.on(<span class="string">'exit'</span>, <span class="function">(<span class="params">worker, code, signal</span>) =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">`worker <span class="subst">$&#123;worker.process.pid&#125;</span> died`</span>);</div><div class="line">  &#125;);</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">  <span class="comment">// Workers can share any TCP connection</span></div><div class="line">  <span class="comment">// In this case it is an HTTP server</span></div><div class="line">  http.createServer(<span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</div><div class="line">    res.writeHead(<span class="number">200</span>);</div><div class="line">    res.end(<span class="string">'hello world\n'</span>);</div><div class="line">  &#125;).listen(<span class="number">8000</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="/images/node_multi_cpu.png" alt=""></p>
+<p>PM2 内置</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pm2 start app<span class="selector-class">.js</span> -<span class="selector-tag">i</span> max <span class="comment">// 支持最多 cpu 核心数运行</span></div><div class="line">pm2 start app<span class="selector-class">.js</span> -<span class="selector-tag">i</span> <span class="number">2</span> <span class="comment">// 支持最多 2 个 cpu 核心运行</span></div></pre></td></tr></table></figure>
+<p>另外，<strong>使用 docker 容器，能更好的解决该问题</strong>，可以考虑弃用 pm2</p>
+<h3 id="2-多台服务器上，负载均衡怎么部署"><a href="#2-多台服务器上，负载均衡怎么部署" class="headerlink" title="2.多台服务器上，负载均衡怎么部署"></a>2.多台服务器上，负载均衡怎么部署</h3><p><img src="/images/node_lb.png" alt=""></p>
+<p>负载均衡实现选型比较：<a href="https://github.com/observing/balancerbattle" target="_blank" rel="external">balancerbattle</a></p>
+<p>比较的结论：nginx 和 haproxy 更加成熟，速度更快</p>
+<h2 id="3-多个-Node-Web-Server-之间，如何进行状态共享"><a href="#3-多个-Node-Web-Server-之间，如何进行状态共享" class="headerlink" title="3.多个 Node Web Server 之间，如何进行状态共享"></a>3.多个 Node Web Server 之间，如何进行状态共享</h2><ul>
+<li>对事务要求较高 - 数据库存储 - mysql</li>
+<li>session，配置项 - 缓存 - redis</li>
+<li>图片，二进制文件等 - 文件系统</li>
+</ul>
+<p><strong>如果只做一个 Node.js 中间层，后台服务还是 Java 的话，Node.js 最好做成无状态的</strong></p>
+      
+    </div>
+    
+  </div>
+  
+    <nav id="article-nav">
+  
+  
+    <a href="/2016/01/04/redux-actiontype-inside/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">redux 进阶之 actionType</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="node-js-distributed" data-title="Node.js 分布式架构" data-url="http://nicefe.com/2016/01/29/node-js-distributed/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"true"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div></div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 孤独惟者 京ICP备15063164号-1
+    	</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-71297681-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+    </div>
+    
+  </div>
+</body>

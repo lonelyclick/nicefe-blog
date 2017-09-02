@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>孤独惟者的博客</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <meta name="description" content="孤独惟者|react|javascript|nicefe|ecmascript|css|js|redux|flux">
+<meta property="og:type" content="website">
+<meta property="og:title" content="孤独惟者的博客">
+<meta property="og:url" content="http://nicefe.com/index.html">
+<meta property="og:site_name" content="孤独惟者的博客">
+<meta property="og:description" content="孤独惟者|react|javascript|nicefe|ecmascript|css|js|redux|flux">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="孤独惟者的博客">
+<meta name="twitter:description" content="孤独惟者|react|javascript|nicefe|ecmascript|css|js|redux|flux">
+  
+    <link rel="alternative" href="/atom.xml" title="孤独惟者的博客" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="/img/avatar.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1">
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">孤独惟者</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">求勾搭：670891929</p>
+		
+
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/lonelyclick" title="github">github</a>
+					        
+						</div>
+					</nav>
+				</section>
+
+				
+
+				
+
+				
+			</div>
+		</div>
+	</header>
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<h1 class="header-author js-mobile-header hide">孤独惟者</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="/img/avatar.png" class="js-avatar" style="width: 100%;height: 100%;opacity: 1">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">孤独惟者</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">求勾搭：670891929</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/lonelyclick" title="github">github</a>
+			        
+				</div>
+			</nav>
+		</header>
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-node-js-distributed" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/29/node-js-distributed/" class="article-date">
+  	<time datetime="2016-01-29T04:25:41.000Z" itemprop="datePublished">2016-01-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/29/node-js-distributed/">Node.js 分布式架构</a>
+    </h1>
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-单台服务器上，如何让-Node-js-充分利用多核心-cpu"><a href="#1-单台服务器上，如何让-Node-js-充分利用多核心-cpu" class="headerlink" title="1.单台服务器上，如何让 Node.js 充分利用多核心 cpu"></a>1.单台服务器上，如何让 Node.js 充分利用多核心 cpu</h3><p>可以使用 Node.js 的 Cluster 功能</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> cluster = <span class="built_in">require</span>(<span class="string">'cluster'</span>);</div><div class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"><span class="keyword">const</span> numCPUs = <span class="built_in">require</span>(<span class="string">'os'</span>).cpus().length;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (cluster.isMaster) &#123;</div><div class="line">  <span class="comment">// Fork workers.</span></div><div class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; numCPUs; i++) &#123;</div><div class="line">    cluster.fork();</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  cluster.on(<span class="string">'exit'</span>, <span class="function">(<span class="params">worker, code, signal</span>) =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">`worker <span class="subst">$&#123;worker.process.pid&#125;</span> died`</span>);</div><div class="line">  &#125;);</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">  <span class="comment">// Workers can share any TCP connection</span></div><div class="line">  <span class="comment">// In this case it is an HTTP server</span></div><div class="line">  http.createServer(<span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</div><div class="line">    res.writeHead(<span class="number">200</span>);</div><div class="line">    res.end(<span class="string">'hello world\n'</span>);</div><div class="line">  &#125;).listen(<span class="number">8000</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><img src="/images/node_multi_cpu.png" alt=""></p>
+<p>PM2 内置</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pm2 start app<span class="selector-class">.js</span> -<span class="selector-tag">i</span> max <span class="comment">// 支持最多 cpu 核心数运行</span></div><div class="line">pm2 start app<span class="selector-class">.js</span> -<span class="selector-tag">i</span> <span class="number">2</span> <span class="comment">// 支持最多 2 个 cpu 核心运行</span></div></pre></td></tr></table></figure>
+<p>另外，<strong>使用 docker 容器，能更好的解决该问题</strong>，可以考虑弃用 pm2</p>
+<h3 id="2-多台服务器上，负载均衡怎么部署"><a href="#2-多台服务器上，负载均衡怎么部署" class="headerlink" title="2.多台服务器上，负载均衡怎么部署"></a>2.多台服务器上，负载均衡怎么部署</h3><p><img src="/images/node_lb.png" alt=""></p>
+<p>负载均衡实现选型比较：<a href="https://github.com/observing/balancerbattle" target="_blank" rel="external">balancerbattle</a></p>
+<p>比较的结论：nginx 和 haproxy 更加成熟，速度更快</p>
+<h2 id="3-多个-Node-Web-Server-之间，如何进行状态共享"><a href="#3-多个-Node-Web-Server-之间，如何进行状态共享" class="headerlink" title="3.多个 Node Web Server 之间，如何进行状态共享"></a>3.多个 Node Web Server 之间，如何进行状态共享</h2><ul>
+<li>对事务要求较高 - 数据库存储 - mysql</li>
+<li>session，配置项 - 缓存 - redis</li>
+<li>图片，二进制文件等 - 文件系统</li>
+</ul>
+<p><strong>如果只做一个 Node.js 中间层，后台服务还是 Java 的话，Node.js 最好做成无状态的</strong></p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+  
+    <article id="post-redux-actiontype-inside" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/01/04/redux-actiontype-inside/" class="article-date">
+  	<time datetime="2016-01-04T06:04:58.000Z" itemprop="datePublished">2016-01-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        <h1 itemprop="name">
+      <a class="article-title" href="/2016/01/04/redux-actiontype-inside/">redux 进阶之 actionType</a>
+    </h1>
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>actions/actionTypes.js</p>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> ADD_TODO = <span class="string">'ADD_TODO'</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> DELETE_TOTO = <span class="string">'DELETE_TODO'</span></div></pre></td></tr></table></figure>
+<p>actions/todo.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123; ADD_TODO, DELETE_TODO &#125; <span class="keyword">from</span> <span class="string">'./actionTypes'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">addTodo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    type: ADD_TODO</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">deleteTodo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    type: DELETE_TODO</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>reducers/todo.js</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">import &#123; ADD_TODO, DELETE_TODO &#125; <span class="keyword">from</span> '../actions/actionTypes'</div><div class="line"></div><div class="line">function todo(<span class="keyword">state</span>, action) &#123;</div><div class="line">  switch(action.type) &#123;</div><div class="line">    case ADD_TODO:</div><div class="line">      return <span class="keyword">state</span></div><div class="line">    case DELETE_TODO:</div><div class="line">      return <span class="keyword">state</span>.xxx</div><div class="line">    <span class="keyword">default</span>:</div><div class="line">      return <span class="keyword">state</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样写如下缺点：</p>
+<ul>
+<li>大写 actionType 名字，难于拼写，并且要写两遍</li>
+<li>不能分业务逻辑进行分类，难于管理，只能这样进行分模块</li>
+</ul>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> TODO_ADD = <span class="string">'TODO_ADD'</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> TODO_DELETE = <span class="string">'TODO_DELETE'</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> MODULEA_ADD = <span class="string">'MODULEA_ADD'</span></div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> MODULEB_ADD = <span class="string">'MODULEB_ADD'</span></div></pre></td></tr></table></figure>
+<h2 id="引入-keyMirror"><a href="#引入-keyMirror" class="headerlink" title="引入 keyMirror"></a>引入 keyMirror</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">install</span> keymirror <span class="comment">--save</span></div></pre></td></tr></table></figure>
+<p>actions/actionTypes.js</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="builtin-name">export</span><span class="built_in"> default </span>keyMirror(&#123;</div><div class="line">  ADD_TODO: <span class="literal">null</span>,</div><div class="line">  DELETE_TODO: <span class="literal">null</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>其它文件不变，这样就可以少写一遍了，差强人意。</p>
+<p>顺便看下 keyMirror 的实现：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> keyMirror = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> ret = &#123;&#125;;</div><div class="line">  <span class="keyword">var</span> key;</div><div class="line">  <span class="keyword">if</span> (!(obj <span class="keyword">instanceof</span> <span class="built_in">Object</span> &amp;&amp; !<span class="built_in">Array</span>.isArray(obj))) &#123;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'keyMirror(...): Argument must be an object.'</span>);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">for</span> (key <span class="keyword">in</span> obj) &#123;</div><div class="line">    <span class="keyword">if</span> (obj.hasOwnProperty(key)) &#123;</div><div class="line">      ret[key] = key;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> ret;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>是啊，只改变了一下数据结构。</p>
+<h2 id="蜕变"><a href="#蜕变" class="headerlink" title="蜕变"></a>蜕变</h2><h3 id="确保-actionType-全局唯一"><a href="#确保-actionType-全局唯一" class="headerlink" title="确保 actionType 全局唯一"></a>确保 actionType 全局唯一</h3><p>其实，在 redux 内部，每触发一次 actionType ，就会走完全部的 reducer， 所以，这个 actionType 必须是<strong>全局唯一的</strong>，这就好办了，我们可以自己定义一个结构，对 actionType 进行再次封装：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="string">function</span> <span class="string">keyMirror(object)</span> <span class="string">&#123;</span></div><div class="line">  <span class="string">//</span> <span class="string">自己实现</span></div><div class="line"><span class="string">&#125;</span></div><div class="line"></div><div class="line"><span class="string">export</span> <span class="string">default</span> <span class="string">keyMirror(&#123;</span></div><div class="line"><span class="attr">  todo:</span> <span class="string">&#123;</span></div><div class="line"><span class="attr">    add:</span> <span class="literal">null</span><span class="string">,</span></div><div class="line"><span class="attr">    del:</span> <span class="literal">null</span><span class="string">,</span></div><div class="line"><span class="attr">    update:</span> <span class="literal">null</span><span class="string">,</span></div><div class="line"><span class="attr">    clear:</span> <span class="literal">null</span></div><div class="line">  <span class="string">&#125;,</span></div><div class="line"></div><div class="line"><span class="attr">  modulea:</span> <span class="string">&#123;</span></div><div class="line"><span class="attr">    add:</span> <span class="literal">null</span><span class="string">,</span></div><div class="line"><span class="attr">    loadChart:</span> <span class="literal">null</span></div><div class="line">  <span class="string">&#125;,</span></div><div class="line"></div><div class="line"><span class="attr">  moduleb:</span> <span class="string">&#123;</span></div><div class="line">    <span class="string">//</span> <span class="string">....</span></div><div class="line">  <span class="string">&#125;</span></div><div class="line"><span class="string">&#125;)</span></div></pre></td></tr></table></figure>
+<h3 id="期望值"><a href="#期望值" class="headerlink" title="期望值"></a>期望值</h3><figure class="highlight less"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attribute">todo</span>: &#123;</div><div class="line">    <span class="attribute">add</span>: <span class="string">'todo_add'</span>,</div><div class="line">    <span class="attribute">del</span>: <span class="string">'todo_del'</span>,</div><div class="line">    <span class="attribute">update</span>: <span class="string">'todo_update'</span>,</div><div class="line">    <span class="attribute">clear</span>: <span class="string">'todo_clear'</span></div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  <span class="attribute">modulea</span>: &#123;</div><div class="line">    <span class="attribute">add</span>: <span class="string">'modulea_add'</span>,</div><div class="line">    <span class="attribute">loadChart</span>: <span class="string">'modulea_loadChart'</span></div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  <span class="attribute">moduleb</span>: &#123;</div><div class="line">    <span class="comment">// ....</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>actions/todo.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> actionTypes <span class="keyword">from</span> <span class="string">'./actionTypes'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">addTodo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    type: actionTypes.todo.add</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">deleteTodo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> &#123;</div><div class="line">    type: actionTypes.todo.del</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>reducers/todo.js</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">import actionTypes <span class="keyword">from</span> './actionTypes'</div><div class="line"></div><div class="line">function todo(<span class="keyword">state</span>, action) &#123;</div><div class="line">  switch(action.type) &#123;</div><div class="line">    case actionTypes.todo.add:</div><div class="line">      return <span class="keyword">state</span></div><div class="line">    case actionTypes.todo.del:</div><div class="line">      return <span class="keyword">state</span>.xxx</div><div class="line">    <span class="keyword">default</span>:</div><div class="line">      return <span class="keyword">state</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ul>
+<li>省去了大写拼写</li>
+<li>分模块管理，易于分辨与管理</li>
+</ul>
+<h2 id="改进版-keyMirror-实现"><a href="#改进版-keyMirror-实现" class="headerlink" title="改进版 keyMirror 实现"></a>改进版 keyMirror 实现</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> ret = &#123;&#125;</div><div class="line"></div><div class="line"><span class="keyword">for</span> (<span class="keyword">const</span> <span class="built_in">module</span> <span class="keyword">in</span> object) &#123;</div><div class="line">  <span class="keyword">if</span> (object.hasOwnProperty(<span class="built_in">module</span>)) &#123;</div><div class="line">    <span class="keyword">const</span> value = object[<span class="built_in">module</span>]</div><div class="line">    <span class="keyword">const</span> pair = &#123;&#125;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> actionType <span class="keyword">in</span> value) &#123;</div><div class="line">      <span class="keyword">if</span> (value.hasOwnProperty(actionType)) &#123;</div><div class="line">        pair[actionType] = <span class="string">`<span class="subst">$&#123;<span class="built_in">module</span>&#125;</span>_<span class="subst">$&#123;actionType&#125;</span>`</span></div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">    ret[<span class="built_in">module</span>] = pair</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">return</span> ret</div></pre></td></tr></table></figure>
+<h2 id="尾巴"><a href="#尾巴" class="headerlink" title="尾巴"></a>尾巴</h2><p>另外，有一个将 reducer, action, actionType 全部写在一块的解决方案 <a href="https://github.com/erikras/ducks-modular-redux" target="_blank" rel="external">ducks-modular-redux</a></p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+  
+    <article id="post-falcor-intro" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/11/falcor-intro/" class="article-date">
+  	<time datetime="2015-12-11T06:10:00.000Z" itemprop="datePublished">2015-12-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/11/falcor-intro/">Falcor 介绍</a>
+    </h1>
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="什么是-Falcor"><a href="#什么是-Falcor" class="headerlink" title="什么是 Falcor"></a>什么是 Falcor</h1><p>Falcor 是一个由 Netflix 提供的新颖的数据平台。它可以把你后台的数据通过一个虚拟的 JSON 数据提供给前端。在前端，你可以像操作本地 JSON 一样操作异步数据。<strong>如果你知道了数据的格式，你就知道了 API 该怎么写了。</strong></p>
+<p>Falcor 是一个中间件。它不是一个应用服务器、数据库、MVC 框架，它经常用来优化前后端的通信。</p>
+<h2 id="一个数据模型，随处运行（One-Model-Everywhere）"><a href="#一个数据模型，随处运行（One-Model-Everywhere）" class="headerlink" title="一个数据模型，随处运行（One Model Everywhere）"></a>一个数据模型，随处运行（One Model Everywhere）</h2><p>Falcor 可以把所有的后台数据作为一个 JSON 资源运行在 server 上</p>
+<p><img src="https://netflix.github.io/falcor/documentation/network-diagram.png" alt=""></p>
+<p>前端请求一个 JSON 资源的子集，就像从内存中拿到一个 JSON Object。通过 URL 来检索服务器端的 JSON 资源，服务器端会返回你想要的那部分数据子集。</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">/model.json?paths=[<span class="string">"user.name"</span>, <span class="string">"user.surname"</span>, <span class="string">"user.address"</span>]</div><div class="line"></div><div class="line">GET /model.json?paths=[<span class="string">"user.name"</span>, <span class="string">"user.surname"</span>, <span class="string">"user.address"</span>]</div><div class="line">&#123;</div><div class="line"><span class="symbol">  user:</span> &#123;</div><div class="line"><span class="symbol">    name:</span> <span class="string">"Frank"</span>,</div><div class="line"><span class="symbol">    surname:</span> <span class="string">"Underwood"</span>,</div><div class="line"><span class="symbol">    address:</span> <span class="string">"1600 Pennsylvania Avenue, Washington, DC"</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过一个 URL 暴露所有的数据并且允许前端可以通过一个请求访问，这就大大的减少了顺序的服务器数据往返。<br>为了确保服务器的是无状态的，Falcor 提供了一个特殊的 <code>Router</code>，以便于前端可以从不同的服务中取数据。</p>
+<p>Falcor 的 <code>Router</code> 是通过一个或多个 Javascript paths 实现路由功能，而不是匹配 URL。</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">var router = new Router([</div><div class="line">  &#123;</div><div class="line">    // matches user.name <span class="keyword">or</span> user.surname <span class="keyword">or</span> user.address</div><div class="line">    route: <span class="string">"user['name','surname','address']"</span>,</div><div class="line">    get(pathSet) &#123;</div><div class="line">      // pathSet could be [<span class="string">"user"</span>, [<span class="string">"name"</span>]], [<span class="string">"user"</span>, [<span class="string">"name"</span>, <span class="string">"surname"</span>]], [<span class="string">"user"</span>, [<span class="string">"surname"</span>, <span class="string">"address"</span>]] <span class="keyword">and</span> so on...</div><div class="line">      userService.</div><div class="line">        getUser(getUserID()).</div><div class="line">        <span class="keyword">then</span>(<span class="function"><span class="keyword">function</span><span class="params">(user)</span></span> &#123;</div><div class="line">          <span class="keyword">return</span> pathSet[<span class="number">1</span>].</div><div class="line">            map(<span class="function"><span class="keyword">function</span><span class="params">(userKey)</span></span> &#123;</div><div class="line">              // <span class="keyword">return</span> response <span class="keyword">for</span> each individual requested <span class="built_in">path</span></div><div class="line">              <span class="keyword">return</span> &#123;</div><div class="line">                <span class="built_in">path</span>: [<span class="string">"user"</span>, userKey],</div><div class="line">                value: user[userKey]</div><div class="line">              &#125;;</div><div class="line">            &#125;);</div><div class="line">         &#125;);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">]);</div></pre></td></tr></table></figure>
+<p>可以用 Falcor <code>Router</code> 从灵活的数据源导出一个 JSON model 到前端。</p>
+<p><img src="https://netflix.github.io/falcor/images/services-diagram.png" alt=""></p>
+<h2 id="数据就是-API"><a href="#数据就是-API" class="headerlink" title="数据就是 API"></a>数据就是 API</h2><p>用 Falcor，你不需要学一个复杂的中间层来操作数据，如果你知道了你要操作的数据，就可以相应的推导出 API。Falcor 可以让你像使用本地数据一样使用 Javascript 操作远程数据。其中，最重要的不同点就是：<strong> Falcor 本地的 API 是异步的</strong>。</p>
+<p>下面是原生 JSON 的写法：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">var model = &#123;</div><div class="line"><span class="symbol">  user:</span> &#123;</div><div class="line"><span class="symbol">    name:</span> <span class="string">"Frank"</span>,</div><div class="line"><span class="symbol">    surname:</span> <span class="string">"Underwood"</span>,</div><div class="line"><span class="symbol">    address:</span> <span class="string">"1600 Pennsylvania Avenue, Washington, DC"</span></div><div class="line">  &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">// prints “Underwood”</span></div><div class="line">console.log(model.user.surname);</div></pre></td></tr></table></figure>
+<p>使用 Falcor，需要用 Falcor Modal 包一层。Falcor Model 可以使用 Javascript 中的路径找寻和操作符。注意，原生 JSON 和 Falcor Model 有个最大的不同点：<strong>Falcor Model 是异步的</strong>。</p>
+<p>下面用 Falcor Model 改写：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> model = <span class="keyword">new</span> falcor.Model(&#123;</div><div class="line">  source: <span class="keyword">new</span> falcor.HttpDataSource(“/model.json”)</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// prints “Underwood” eventually</span></div><div class="line">model.</div><div class="line">  getValue(“user.surname”).</div><div class="line">  then(<span class="function"><span class="keyword">function</span>(<span class="params">surname</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(surname);</div><div class="line">  &#125;);</div></pre></td></tr></table></figure>
+<p>如果不使用内存中的数据，Falcor 可以远程请求服务器端的 虚拟 JSON 对象。Falcor Router 接受传过来的信息，返回你想要的那部分字段。</p>
+<p><img src="https://netflix.github.io/falcor/images/falcor-end-to-end.png" alt=""></p>
+<p>使用异步的 API 的好处在于你可以用一样的 Model，而不用管数据是本地的还是远程的。最开始使用 Falcor 的时候，最好先模拟服务器端的 JSON 对象，然后可以使用 <code>HttpDataSource</code> 进行转换，除了这个，服务器端就不需要再做什么了。这对于解耦前后端的开发大有脾益。</p>
+<h2 id="Bind-to-the-Cloud"><a href="#Bind-to-the-Cloud" class="headerlink" title="Bind to the Cloud"></a>Bind to the Cloud</h2><p>在大部分的 MVC 架构里， 接收数据都是 <code>Controller</code> 的职责，用 Falcor 的一个最佳实践就是直接在 <code>View</code> 层来直接接受数据，并且像操作内存中的数据一样进行操作。因为 View 和 Modal 之间的通信是异步的，有些时间需要异步的 MVC。</p>
+<p><img src="https://netflix.github.io/falcor/images/async-mvc.png" alt=""></p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+  
+    <article id="post-function-programming-roadmap" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/09/function-programming-roadmap/" class="article-date">
+  	<time datetime="2015-12-09T02:34:00.000Z" itemprop="datePublished">2015-12-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/09/function-programming-roadmap/">函数式编程深入路线</a>
+    </h1>
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>函数式思维</li>
+<li>定义函数输入与输出</li>
+<li>内部实现（遵循纯度与不可变性理论）</li>
+<li>基础组合子</li>
+</ul>
+<h2 id="函数式思维"><a href="#函数式思维" class="headerlink" title="函数式思维"></a>函数式思维</h2><p>我们惯常的思维都是面向过程式的，比如：<br><figure class="highlight smali"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">const<span class="built_in"> array </span>= [1, 2, 3, 4, 5, 6]</div><div class="line">console.log(array[1])</div></pre></td></tr></table></figure></p>
+<p>相当于我从 <code>array</code> 中拿第几个的值，而函数式思维是：我先做一个工具，我给这个工具输入 <code>array</code> 与 <code>index</code> ，这个工具负责给我返回我想要的值</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function">function <span class="title">nth</span><span class="params">(<span class="built_in">array</span>, index)</span> </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="built_in">array</span>[index]</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">const</span> <span class="built_in">array</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</div><div class="line">console.<span class="built_in">log</span>(nth(<span class="built_in">array</span>, <span class="number">1</span>))</div></pre></td></tr></table></figure>
+<p>也就说，面向过程的思维的最小原子是一个个命令，而函数式思维的最小原子是一个个的<strong>函数</strong>，所以函数式思维的优点在于：</p>
+<ul>
+<li>代码层面，最小原子是函数，高一个维度</li>
+<li>思维层面，使用函数式来思考及设计，就是要使用『上帝』的视角了。</li>
+</ul>
+<h2 id="定义函数输入与输出"><a href="#定义函数输入与输出" class="headerlink" title="定义函数输入与输出"></a>定义函数输入与输出</h2><h3 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h3><p>所谓高阶函数，首要条件是函数必须为一等公民，也就是说，函数必须可以想其他原生数据类型一样作为值进行传递，可分为三种：</p>
+<ul>
+<li>函数作为参数传入</li>
+</ul>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fp1</span><span class="params">(callback)</span> </span>&#123;</div><div class="line">  callback()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>函数作为返回值返回</li>
+</ul>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fp2</span><span class="params">()</span> </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">callback</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>函数作为参数传入，并且函数作为返回值</li>
+</ul>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fp3</span><span class="params">(callback1)</span> </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="title">callback2</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> callback1()</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="难度"><a href="#难度" class="headerlink" title="难度"></a>难度</h3><p>其中，第一二种，比较简单，第三种，困难</p>
+<h2 id="内部实现"><a href="#内部实现" class="headerlink" title="内部实现"></a>内部实现</h2><h3 id="纯度"><a href="#纯度" class="headerlink" title="纯度"></a>纯度</h3><p>也就是说，每个函数尽量要写成纯函数(pure function)</p>
+<ul>
+<li>结果只能从他的参数值来计算</li>
+<li>不能依赖被外部改变的数据</li>
+<li>不能改变外部的状态</li>
+</ul>
+<h3 id="不可变数据结构"><a href="#不可变数据结构" class="headerlink" title="不可变数据结构"></a>不可变数据结构</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="built_in">set</span> = <span class="keyword">new</span> Set()</div><div class="line"><span class="built_in">set</span>.<span class="built_in">add</span>(<span class="number">1</span>)</div><div class="line">console.<span class="built_in">log</span>(<span class="built_in">set</span>) <span class="comment">// mutable</span></div></pre></td></tr></table></figure>
+<p>如上代码，es6 的 <code>Set</code> 就是一个可变数据结构，而不可变数据结构如下：</p>
+<figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> <span class="built_in">set</span> = <span class="keyword">new</span> Set()</div><div class="line"><span class="keyword">const</span> set2 = <span class="built_in">set</span>.<span class="built_in">add</span>(<span class="number">1</span>)</div><div class="line">console.<span class="built_in">log</span>(<span class="built_in">set</span>.<span class="built_in">size</span>) <span class="comment">// 0</span></div><div class="line">console.<span class="built_in">log</span>(set2.<span class="built_in">size</span>) <span class="comment">// 1</span></div></pre></td></tr></table></figure>
+<p>这里推荐优秀的 <a href="https://facebook.github.io/immutable-js/" target="_blank" rel="external">Immutablejs</a></p>
+<h3 id="范例"><a href="#范例" class="headerlink" title="范例"></a>范例</h3><p><code>redux</code> 的 <code>reducer</code> 是一个很好的范例</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">import Immutable <span class="keyword">from</span> 'immutable'</div><div class="line">import &#123; createReducer &#125; <span class="keyword">from</span> 'redux-immutablejs'</div><div class="line"></div><div class="line">import &#123; common as actionType &#125; <span class="keyword">from</span> '../lib/actionType'</div><div class="line"></div><div class="line">export <span class="keyword">default</span> createReducer(Immutable.<span class="keyword">from</span>JS(&#123;&#125;), &#123;</div><div class="line">  [actionType.requestFail](<span class="keyword">state</span>, action) &#123;</div><div class="line">    return <span class="keyword">state</span>.merge(&#123;</div><div class="line">      theme: 'error',</div><div class="line">      message: action.error,</div><div class="line">      time: String(Date.now())</div><div class="line">    &#125;)</div><div class="line">  &#125;,</div><div class="line"></div><div class="line">  [actionType.auditResourceSuccess](<span class="keyword">state</span>, action) &#123;</div><div class="line">    return <span class="keyword">state</span>.merge(&#123;</div><div class="line">      theme: 'success',</div><div class="line">      message: action.message,</div><div class="line">      title: action.title,</div><div class="line">      time: String(Date.now())</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h2 id="基础组合子推荐"><a href="#基础组合子推荐" class="headerlink" title="基础组合子推荐"></a>基础组合子推荐</h2><h3 id="es5-amp-es6"><a href="#es5-amp-es6" class="headerlink" title="es5 &amp; es6"></a>es5 &amp; es6</h3><p>es5 和 es6 的出现，让 javascript 更加容易实现函数式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>].map(<span class="function"><span class="params">index</span> =&gt;</span> index + <span class="number">2</span>) <span class="comment">// [3, 4, 5, 6, 7, 8]</span></div><div class="line">[<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>, <span class="string">'d'</span>].reduce(<span class="function">(<span class="params">result, current</span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">return</span> <span class="built_in">Object</span>.assign(result, &#123;</div><div class="line">    [current]: <span class="literal">null</span></div><div class="line">  &#125;)</div><div class="line">&#125;, &#123;&#125;) <span class="comment">// &#123; a: null, b: null, c: null, d: null &#125;</span></div></pre></td></tr></table></figure>
+<h3 id="underscore-amp-amp-lodash"><a href="#underscore-amp-amp-lodash" class="headerlink" title="underscore &amp;&amp; lodash"></a>underscore &amp;&amp; lodash</h3><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">_<span class="selector-class">.findWhere</span>(<span class="selector-tag">publicServicePulitzers</span>, &#123;<span class="attribute">newsroom</span>: <span class="string">"The New York Times"</span>&#125;)</div></pre></td></tr></table></figure>
+<h3 id="Immutablejs"><a href="#Immutablejs" class="headerlink" title="Immutablejs"></a>Immutablejs</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">var</span> map1 = Immutable.Map(&#123; <span class="selector-tag">a</span>:<span class="number">1</span>, <span class="selector-tag">b</span>:<span class="number">2</span>, c:<span class="number">3</span> &#125;)</div><div class="line"><span class="selector-tag">var</span> map2 = map1.set(<span class="string">'b'</span>, <span class="number">50</span>)</div><div class="line">map1.get(<span class="string">'b'</span>) <span class="comment">// 2</span></div><div class="line">map2.get(<span class="string">'b'</span>) <span class="comment">// 50</span></div></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article></div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 孤独惟者 京ICP备15063164号-1
+    	</div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-71297681-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+    </div>
+    
+  </div>
+</body>
